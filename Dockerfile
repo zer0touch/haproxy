@@ -2,8 +2,9 @@
 FROM zer0touch/ubuntu-systemd
 MAINTAINER Ryan Harper <ryan.harper@zer0touch.co.uk>
 ENV LBADDR 127.0.0.1
-ADD https://github.com/hashicorp/consul-template/releases/download/v0.16.0/consul-template_0.16.0_linux_amd64.tar.gz /tmp/consul-template.tar.gz
-ADD https://github.com/hashicorp/envconsul/releases/download/v0.6.1/envconsul_0.6.1_linux_amd64.tar.gz /tmp/envconsul.tar.gz
+
+ADD https://github.com/hashicorp/consul-template/archive/v0.16.0.tar.gz /tmp/consul-template.tar.gz
+ADD https://github.com/hashicorp/envconsul/archive/v0.6.1.tar.gz /tmp/envconsul.tar.gz
 
 RUN mv /var/lib/apt/lists* /tmp && \
     mv /var/cache/apt/archives/partial* /tmp && \
