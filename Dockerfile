@@ -1,5 +1,5 @@
 # Haproxy container with consul integrated and started with systemd
-FROM zer0touch/docker-systemd
+FROM zer0touch/docker-systemd:latest
 MAINTAINER Ryan Harper <ryan.harper@zer0touch.co.uk>, original fork Matthias Grüter <matthias@grueter.name>
 ENV LBADDR 127.0.0.1
 
