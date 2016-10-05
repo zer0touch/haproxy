@@ -1,0 +1,20 @@
+image: registry.service.consul/ubuntu-build
+env:
+  - DOCKER_HOST=tcp://consul.service.consul:2375
+  - REGISTRY=registry.service.consul
+  - IMAGE_NAME=haproxy
+script:
+  - env
+  - cd $DRONE_BUILD_DIR
+  - docker -H tcp://`ip r g 8.8.8.8 | awk '{ gsub(/\n$/,""); printf("%s", $3); }'`:2375 build --no-cache=true -t $REGISTRY/$IMAGE_NAME:$DRONE_BUILD_NUMBER .
+  - docker -H tcp://`ip r g 8.8.8.8 | awk '{ gsub(/\n$/,""); printf("%s", $3); }'`:2375 push $REGISTRY/$IMAGE_NAME:$DRONE_BUILD_NUMBER
+  - git remote add deploy ssh://git@devops-tools.pearson.com/mysdkr/haproxy.git
+  - git push deploy $DRONE_BRANCH
+notify:
+  slack:
+    webhook_url: 'http://hooks.slack.com/services/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'
+    channel: '#mystack-portal'
+    username: 'drone'
+    on_started: true
+    on_success: true
+    on_failure: true

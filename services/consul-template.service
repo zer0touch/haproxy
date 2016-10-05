@@ -1,0 +1,13 @@
+[Unit]
+Description=Reloads the configration for haproxy as well as keepalived
+After=syslog.target network.target setenv.service
+Before=haproxy.service keepalived.service
+Requires=setenv.service
+
+[Service]
+Environment="LBADDR=$LBADDR"
+ExecStart=/usr/local/bin/consul-template-start
+ExecStop=/bin/killall -r consul-template -9
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,17 @@
+[Unit]
+Description=Environment Setup
+After=syslog.target network.target
+Before=keepalived.service haproxy.service consul-template.service
+
+[Service]
+ExecStart=/bin/bash -l -c "set -x ; \
+ LB_CALC=$(/usr/bin/ipcalc `ip addr list ens192 |grep inet |cut -d' ' -f6|cut -d/ -f1,2 | head -n 1 ` | grep 'HostMax:' | awk '{print $2}') ; \
+ systemctl set-environment LB_ADDR=$LBADDR ; \
+ [[ $HOSTNAME =~ "01" ]] && systemctl set-environment PRIORITY=150 || systemctl set-environment PRIORITY=100 ; \
+ systemctl show-environment > /etc/default/consul-template ; \
+ systemctl show-environment > /etc/profile.d/env.sh"
+
+ExecStop=/bin/true
+RemainAfterExit=yes
+[Install]
+WantedBy=multi-user.target
