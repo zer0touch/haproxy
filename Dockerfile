@@ -1,6 +1,6 @@
-# ADDING COMMENT
-FROM zer0touch/ubuntu-systemd
-MAINTAINER Ryan Harper <ryan.harper@zer0touch.co.uk>
+# Haproxy container with consul integrated and started with systemd
+FROM zer0touch/docker-systemd
+MAINTAINER Ryan Harper <ryan.harper@zer0touch.co.uk>, original fork Matthias Grüter <matthias@grueter.name>
 ENV LBADDR 127.0.0.1
 
 ADD https://releases.hashicorp.com/consul-template/0.16.0/consul-template_0.16.0_linux_amd64.zip /tmp/consul-template.zip
@@ -36,5 +36,6 @@ ADD errors /etc/haproxy/errors
 RUN chmod 750 /usr/sbin/haproxy /usr/local/bin/consul-template-start && \  
     systemctl enable keepalived.service && \
     systemctl enable consul-template.service
+
 ENTRYPOINT ["/lib/systemd/systemd"]
 CMD ["systemd.unit=emergency.service"]
