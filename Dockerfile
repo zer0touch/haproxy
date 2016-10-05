@@ -7,7 +7,7 @@ ADD https://releases.hashicorp.com/consul-template/0.16.0/consul-template_0.16.0
 ADD https://releases.hashicorp.com/envconsul/0.6.1/envconsul_0.6.1_linux_amd64.zip /tmp/envconsul.zip
 
 RUN mv /var/lib/apt/lists* /tmp && \
-    userdel haproxy && \
+    userdel haproxy || /bin/true && \
     mv /var/cache/apt/archives/partial* /tmp && \
     sed -i 's/^# \(.*-backports\s\)/\1/g' /etc/apt/sources.list && \
     apt-get update && \
