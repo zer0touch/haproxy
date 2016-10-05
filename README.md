@@ -13,7 +13,7 @@ The container build currently leverages systemd as there are a few dependent pro
 Run the haproxy container example
 Ths runs the container in host mode so you access the root net namespace.  This needs to have the cap net admin capability, so run with either privileged mode or add the appropriate capability
 
-  $docker run --net=host --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/ssl/:/etc/ssl/ -d zer0touch/haproxy /lib/systemd/systemd
+  $ docker run --net=host --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v /etc/ssl/:/etc/ssl/ -d zer0touch/haproxy /lib/systemd/systemd
   configuration is provided by consul template. 
 ## TODO
   
