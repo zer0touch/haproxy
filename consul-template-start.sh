@@ -2,10 +2,6 @@
 set -x
 LB_ADDR=$(/usr/bin/ipcalc `ip addr list eth0 |grep inet |cut -d' ' -f6|cut -d/ -f1,2 | head -n 1 ` | grep 'HostMax:' | awk '{print $2}')
 
-
-     TX packets 28  bytes 7827 (7.6 KiB)
-        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
-
 case $(hostname) in
   *1*) echo yes ;;
   *3*) echo no ;;
